@@ -115,8 +115,8 @@ const Profile = (props) => {
                 }
             });
             const transformedResponse = await response.json();
-            // console.log(response);
-            // console.log(transformedResponse);
+            console.log(response);
+            console.log(transformedResponse);
         } catch (err) { }
     }
 

@@ -8,9 +8,11 @@ const SignUp = (prop) => {
     const confRef = useRef();
     const history = useHistory();
     const [error, setError] = useState(false);
+    const [created, setCreated] = useState(false);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        setCreated(false);
         if (!emailRef.current.value.includes('@') || passRef.current.value.length < 6 || passRef.current.value !== confRef.current.value) {
             setError(true);
             return;
@@ -31,7 +33,8 @@ const SignUp = (prop) => {
             });
             const transformedResponse = await response.json();
             if (response.ok) {
-                alert('Account Created!');
+                // alert('Account Created!');
+                setCreated(true);
                 // history.replace('/login');
             } else {
                 let errorMessage = 'Authentication Failed!';
@@ -59,6 +62,7 @@ const SignUp = (prop) => {
                         <Card.Body style={{ backgroundColor: '#f7f5f0' }}>
                             <Form>
                                 {error && <p className="text-center text-danger">Invalid data.</p>}
+                                {created && <p className="text-center text-info">Account Created.</p>}
                                 <Form.Group className="mb-3">
                                     <Form.Label htmlFor="email">Email</Form.Label>
                                     <Form.Control id="email" type="email" required ref={emailRef} />

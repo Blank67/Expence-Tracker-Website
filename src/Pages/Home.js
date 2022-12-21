@@ -1,5 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import Expenses from "../Components/Expense/Expenses";
 import AuthContext from "../firebase/auth-context";
 
 const Home = (props) => {
@@ -43,17 +45,32 @@ const Home = (props) => {
             } catch (err) {
                 alert(err.message);
             }
-
         }
         getData();
     }, [authCtx.token]);
 
     return (
         <Fragment>
-            <div>
-                {(!profileCompleted || !emailVerified) && <NavLink to='/profile' className="nav-link float-end me-3 text-danger">Complete your profile</NavLink>}
-                <h1>Welcome to Expense Tracker!</h1>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <h2>Welcome to Expense Tracker</h2>
+                    </Col>
+                    <Col>
+                        {(!profileCompleted || !emailVerified) &&
+                            <p className="nav-link float-end">
+                                Your profile is incomplete.&nbsp;
+                                <NavLink to='/profile' className="float-end me-3 text-danger">
+                                    <span>Complete Now.</span>
+                                </NavLink>
+                            </p>}
+                    </Col>
+                </Row>
+                <hr style={{ borderWidth: '2px' }} />
+            </Container>
+            <section>
+                <Expenses />
+            </section>
         </Fragment>
     );
 }

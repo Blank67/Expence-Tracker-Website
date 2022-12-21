@@ -1,0 +1,29 @@
+import { Fragment, useContext, useState } from "react";
+import { Button } from "react-bootstrap";
+import ExpenseContext from "../../Context/expense-context";
+import Expenseform from "./ExpenseForm";
+import ExpenseList from "./ExpenseList";
+
+const Expenses = (props) => {
+    const [showForm, setShowForm] = useState(false);
+    const expenseCtx = useContext(ExpenseContext);
+
+    const toggleExpenseFormHandler = () => {
+        setShowForm((prevState) => !prevState);
+    }
+    return (
+        <Fragment>
+            <section className="text-center">
+                {!showForm && <Button onClick={toggleExpenseFormHandler}>Add Expense</Button>}
+                {showForm && <Expenseform onShow={showForm} onClose={toggleExpenseFormHandler} />}
+            </section>
+            <section>
+                <h2 className="mt-5 mx-2">Expense List</h2>
+                <ExpenseList />
+                <h2 className="float-end me-2">Total Expense: Rs.{expenseCtx.totalAmount}</h2>
+            </section>
+        </Fragment>
+    );
+}
+
+export default Expenses;

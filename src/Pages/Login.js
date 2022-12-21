@@ -38,7 +38,6 @@ const Login = (props) => {
                 authCtx.login(transformedResponse.idToken);
                 alert('Logged In!');
                 history.replace('/home');
-                // setIsLoggedIn(true);
             } else {
                 let errorMessage = 'Authentication Failed!';
                 if (transformedResponse.error.message) {

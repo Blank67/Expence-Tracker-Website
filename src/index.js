@@ -7,14 +7,17 @@ import '../node_modules/react-bootstrap/dist/react-bootstrap.min';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './firebase/AuthProvider';
+import ExpenseProvider from './Context/ExpenseProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ExpenseProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ExpenseProvider>
     </AuthProvider>
   </React.StrictMode>
 );

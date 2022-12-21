@@ -32,7 +32,7 @@ const Login = (props) => {
                 }
             })
             console.log(response);
-            let transformedResponse = await response.json();
+            const transformedResponse = await response.json();
             console.log(transformedResponse);
             if (response.ok) {
                 authCtx.login(transformedResponse.idToken);

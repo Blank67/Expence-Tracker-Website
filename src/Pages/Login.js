@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AuthContext from "../firebase/auth-context";
 
 const Login = (props) => {
@@ -51,13 +51,12 @@ const Login = (props) => {
         }
     }
 
-    const onLoginClickHandler = () => {
-        history.replace('/login');
+    const onSignUpClickHandler = () => {
+        history.replace('/signup');
     }
 
-    const forgetPasswordHandler = (e) => {
-        e.preventDefault();
-        console.log("Clikeddd");
+    const forgetPasswordHandler = () => {
+        history.replace('/resetpassword');
     }
 
     return (
@@ -83,7 +82,7 @@ const Login = (props) => {
                                     <Button variant="warning" type="submit" onClick={onSubmitHandler}>Login</Button>
                                 </div>
                                 <div className="text-center mt-2">
-                                    <a href="forgetPasswordHandler()">Forget Password</a>
+                                    <Button variant="link" onClick={forgetPasswordHandler}>Forget Password</Button>
                                 </div>
                             </Form>
                         </Card.Body>
@@ -93,7 +92,7 @@ const Login = (props) => {
             <Row className="justify-content-center pt-3">
                 <Col xs={4}>
                     <div className="d-grid">
-                        <Button onClick={onLoginClickHandler}>New user? SignUp</Button>
+                        <Button onClick={onSignUpClickHandler}>New user? SignUp</Button>
                     </div>
                 </Col>
             </Row>

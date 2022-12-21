@@ -89,7 +89,6 @@ const Profile = (props) => {
         } catch (err) {
             alert(err.message);
         }
-
     }
 
     const passwordChangeHandler = (e) => {

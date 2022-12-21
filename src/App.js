@@ -6,6 +6,7 @@ import AuthContext from './firebase/auth-context';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
+import ResetPassword from './Pages/ResetPassword';
 import SignUp from './Pages/SignUp';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         {authCtx.isLoggedIn && <Route path='/profile'><Profile /></Route>}
         {!authCtx.isLoggedIn && <Route path='/login'><Login /></Route>}
         {!authCtx.isLoggedIn && <Route path='/signup'><SignUp /></Route>}
+        {!authCtx.isLoggedIn && <Route path='/resetpassword'><ResetPassword /></Route>}
         <Route path='*'><Redirect to='/login' /></Route>
       </Switch>
     </div>

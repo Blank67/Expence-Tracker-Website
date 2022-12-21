@@ -16,7 +16,7 @@ const Header = (props) => {
                 <button className="navbar-toggler ms-3" data-bs-toggle="collapse" data-bs-target="#navBar1" aria-controls="navBar1" aria-label="Expand Navigation">
                     <div className="navbar-toggler-icon" />
                 </button>
-                <NavLink className="navbar-brand ms-3" to="#">Expense Tracker</NavLink>
+                <NavLink className="navbar-brand ms-3" to={authCtx.isLoggedIn ? "/home" : "/login"}>Expense Tracker</NavLink>
 
                 <div className="collapse navbar-collapse justify-content-center" id="navBar1">
                     <ul className="navbar-nav mr-auto ms-sm-3">

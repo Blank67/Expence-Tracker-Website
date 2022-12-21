@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import AuthContext from "../firebase/auth-context";
 
 const Login = (props) => {
@@ -31,9 +31,9 @@ const Login = (props) => {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(response);
             const transformedResponse = await response.json();
-            console.log(transformedResponse);
+            // console.log(response);
+            // console.log(transformedResponse);
             if (response.ok) {
                 authCtx.login(transformedResponse.idToken);
                 alert('Logged In!');
@@ -49,6 +49,15 @@ const Login = (props) => {
         } catch (err) {
             alert(err.message);
         }
+    }
+
+    const onLoginClickHandler = () => {
+        history.replace('/login');
+    }
+
+    const forgetPasswordHandler = (e) => {
+        e.preventDefault();
+        console.log("Clikeddd");
     }
 
     return (
@@ -73,18 +82,21 @@ const Login = (props) => {
                                 <div className="text-center">
                                     <Button variant="warning" type="submit" onClick={onSubmitHandler}>Login</Button>
                                 </div>
+                                <div className="text-center mt-2">
+                                    <a href="forgetPasswordHandler()">Forget Password</a>
+                                </div>
                             </Form>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
-            {/* <Row className="justify-content-center pt-3">
+            <Row className="justify-content-center pt-3">
                 <Col xs={4}>
                     <div className="d-grid">
-                        <Button onClick={onLoginClickHandler}>Have an account? Login</Button>
+                        <Button onClick={onLoginClickHandler}>New user? SignUp</Button>
                     </div>
                 </Col>
-            </Row> */}
+            </Row>
         </Container>
     );
 }

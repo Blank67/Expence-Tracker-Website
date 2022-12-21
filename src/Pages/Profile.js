@@ -8,6 +8,7 @@ const Profile = (props) => {
     const newPassRef = useRef('');
     const [errorDetails, setErrorDetails] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
+    const [isVerified, setIsVerified] = useState(true);
     const authCtx = useContext(AuthContext);
 
     useEffect(() => {
@@ -21,14 +22,19 @@ const Profile = (props) => {
                         'Content-Type': 'application/json'
                     }
                 });
-                console.log(response);
                 const transformedResponse = await response.json();
-                console.log(transformedResponse);
+                // console.log(response);
+                // console.log(transformedResponse);
                 if (response.ok) {
                     if (transformedResponse.users[0].displayName) {
                         nameRef.current.value = transformedResponse.users[0].displayName;
                     } else {
                         nameRef.current.value = '';
+                    }
+                    if (!transformedResponse.users[0].emailVerified) {
+                        setIsVerified(false);
+                    } else {
+                        setIsVerified(true);
                     }
                 } else {
                     let errorMessage = 'Authentication Failed!';
@@ -37,10 +43,9 @@ const Profile = (props) => {
                     }
                     throw new Error(errorMessage);
                 }
-            } catch (err) { 
+            } catch (err) {
                 alert(err.message);
             }
-
         }
         getData();
     }, [authCtx.token]);
@@ -65,9 +70,9 @@ const Profile = (props) => {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response);
             const transformedResponse = await response.json();
-            console.log(transformedResponse);
+            // console.log(response);
+            // console.log(transformedResponse);
             if (response.ok) {
                 if (transformedResponse.displayName) {
                     nameRef.current.value = transformedResponse.displayName;
@@ -95,6 +100,25 @@ const Profile = (props) => {
         }
         setErrorPassword(false);
 
+    }
+
+    const verifyUserHandler = async () => {
+        try {
+            const url = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDNiGP2YbgqnIMHk-jicOFmjCh_0TUERf8';
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    requestType: 'VERIFY_EMAIL',
+                    idToken: authCtx.token,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const transformedResponse = await response.json();
+            // console.log(response);
+            // console.log(transformedResponse);
+        } catch (err) { }
     }
 
     return (
@@ -135,9 +159,11 @@ const Profile = (props) => {
                     </Card>
                 </Col>
             </Row>
-            <Row className="justify-content-center mt-5 mx-3">
-
-            </Row>
+            {!isVerified && <Row className="justify-content-center mt-5 mx-3">
+                <Col xs={8} className="d-grid">
+                    <Button className="float" onClick={verifyUserHandler}>Send verification email</Button>
+                </Col>
+            </Row>}
         </Container>
     );
 }

@@ -4,7 +4,8 @@ import AuthContext from "../firebase/auth-context";
 
 const Home = (props) => {
 
-    const [profileCompleted, setProfileCompleted] = useState(false);
+    const [profileCompleted, setProfileCompleted] = useState(true);
+    const [emailVerified, setEmailVerified] = useState(true);
     const authCtx = useContext(AuthContext);
 
     useEffect(() => {
@@ -19,13 +20,18 @@ const Home = (props) => {
                     }
                 });
                 const transformedResponse = await response.json();
-                console.log(response);
-                console.log(transformedResponse);
+                // console.log(response);
+                // console.log(transformedResponse);
                 if (response.ok) {
-                    if (transformedResponse.users[0].displayName) {
-                        setProfileCompleted(true);
-                    } else {
+                    if (!transformedResponse.users[0].displayName) {
                         setProfileCompleted(false);
+                    } else {
+                        setProfileCompleted(true);
+                    }
+                    if (transformedResponse.users[0].emailVerified) {
+                        setEmailVerified(true);
+                    } else {
+                        setEmailVerified(false);
                     }
                 } else {
                     let errorMessage = 'Authentication Failed!';
@@ -43,11 +49,11 @@ const Home = (props) => {
     }, [authCtx.token]);
 
     return (
-        <Fragment><div>
-
-            {!profileCompleted && <NavLink to='/profile' className="nav-link float-end me-3 text-danger">Complete your profile</NavLink>}
-            <h1>Welcome to Expense Tracker!</h1>
-        </div>
+        <Fragment>
+            <div>
+                {(!profileCompleted || !emailVerified) && <NavLink to='/profile' className="nav-link float-end me-3 text-danger">Complete your profile</NavLink>}
+                <h1>Welcome to Expense Tracker!</h1>
+            </div>
         </Fragment>
     );
 }

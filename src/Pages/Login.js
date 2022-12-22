@@ -35,7 +35,7 @@ const Login = (props) => {
             // console.log(response);
             // console.log(transformedResponse);
             if (response.ok) {
-                authCtx.login(transformedResponse.idToken);
+                authCtx.login(transformedResponse.idToken,transformedResponse.localId);
                 alert('Logged In!');
                 history.replace('/home');
             } else {

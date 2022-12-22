@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import { Button } from "react-bootstrap";
 import ExpenseContext from "../../Context/expense-context";
 import ExpenseForm from "./ExpenseForm";
@@ -8,7 +8,12 @@ import ExpenseList from "./ExpenseList";
 const Expenses = (props) => {
     const [showForm, setShowForm] = useState(false);
     const expenseCtx = useContext(ExpenseContext);
-    const overlay = document.getElementById('custompopups');
+    // const overlay = document.getElementById('custompopups');
+    const [totalAmount, setTotalAmount] = useState(0);
+
+    const addAmount = (amt) => {
+        setTotalAmount((prevAmount) => prevAmount+(+amt));
+    }
 
     const toggleExpenseFormHandler = () => {
         setShowForm((prevState) => !prevState);
@@ -22,8 +27,9 @@ const Expenses = (props) => {
             </section>
             <section>
                 <h2 className="mt-5 mx-2">Expense List</h2>
-                <ExpenseList />
-                <h2 className="float-end me-2">Total Expense: Rs.{expenseCtx.totalAmount}</h2>
+                <ExpenseList total={addAmount} />
+                {/* <h2 className="float-end me-2">Total Expense: Rs.{expenseCtx.totalAmount}</h2> */}
+                <h2 className="float-end me-2">Total Expense: Rs.{totalAmount}</h2>
             </section>
         </Fragment>
     );

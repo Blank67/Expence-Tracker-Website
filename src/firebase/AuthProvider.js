@@ -5,10 +5,12 @@ const AuthProvider = (props) => {
 
     const initialToken = localStorage.getItem('token');
     const [token, setToken] = useState(initialToken);
+    const [userId, setUserId] = useState('');
     const userIsLoggedIn = !!token;
 
-    const loginHandler = (tkn) => {
+    const loginHandler = (tkn,uID) => {
         setToken(tkn);
+        setUserId(uID)
         localStorage.setItem('token', tkn);
     }
     const logoutHandler = () => {
@@ -18,6 +20,7 @@ const AuthProvider = (props) => {
 
     const authContextValue = {
         token: token,
+        userId: userId,
         isLoggedIn: userIsLoggedIn,
         login: loginHandler,
         logout: logoutHandler,

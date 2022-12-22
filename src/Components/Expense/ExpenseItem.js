@@ -1,10 +1,9 @@
 import { Button, Card } from "react-bootstrap";
-import ExpenseActions from "./ExpenseActions";
 import ExpenseDetails from "./ExpenseDetails";
 
 const ExpenseItem = (props) => {
     return (
-        <li className="my-2">
+        <li className="my-2" id={props.id}>
             <Card>
                 <ExpenseDetails category={props.category} title={props.title} price={props.price} />
                 <div className="d-flex justify-content-end p-2" style={{ marginBottom: "20px", marginTop: "-65px" }}>

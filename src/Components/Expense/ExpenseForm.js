@@ -1,28 +1,42 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import ExpenseContext from "../../Context/expense-context";
+// import ExpenseContext from "../../Context/expense-context";
 import axios from '../../axios/axios';
+import AuthContext from "../../firebase/auth-context";
 
 const ExpenseForm = (props) => {
     const amountRef = useRef('');
     const titleRef = useRef('');
     const categoryRef = useRef('');
     const [error, setError] = useState(false);
-    const expenseCtx = useContext(ExpenseContext);
+    // const expenseCtx = useContext(ExpenseContext);
+    const authCtx = useContext(AuthContext);
+
+    const postExpense = async (expense) => {
+        try {
+            const response = await axios.post(`/${authCtx.userId}.json`,expense);
+            console.log(response);
+            // const data = await JSON.stringify(response);
+            // console.log(data);
+        } catch (err) {
+
+        }
+    }
 
     const addExpenseHandler = () => {
-        if(amountRef.current.value < 1 || titleRef.current.value === ''){
+        if (amountRef.current.value < 1 || titleRef.current.value === '') {
             setError(true);
             return;
         }
         setError(false);
         const expense = {
-            id: Math.floor(Math.random()*100),
+            // id: Math.floor(Math.random() * 100),
             category: categoryRef.current.value,
             title: titleRef.current.value,
             price: amountRef.current.value
         };
-        expenseCtx.addItem(expense);
+        // expenseCtx.addItem(expense);
+        postExpense(expense);
         props.onClose();
     }
 

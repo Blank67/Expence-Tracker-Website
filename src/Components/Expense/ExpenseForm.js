@@ -1,16 +1,17 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import ExpenseContext from "../../Context/expense-context";
+import axios from '../../axios/axios';
 
 const ExpenseForm = (props) => {
     const amountRef = useRef('');
-    const descriptionRef = useRef('');
+    const titleRef = useRef('');
     const categoryRef = useRef('');
     const [error, setError] = useState(false);
     const expenseCtx = useContext(ExpenseContext);
 
     const addExpenseHandler = () => {
-        if(amountRef.current.value < 1 || descriptionRef.current.value === ''){
+        if(amountRef.current.value < 1 || titleRef.current.value === ''){
             setError(true);
             return;
         }
@@ -18,7 +19,7 @@ const ExpenseForm = (props) => {
         const expense = {
             id: Math.floor(Math.random()*100),
             category: categoryRef.current.value,
-            description: descriptionRef.current.value,
+            title: titleRef.current.value,
             price: amountRef.current.value
         };
         expenseCtx.addItem(expense);
@@ -33,7 +34,7 @@ const ExpenseForm = (props) => {
             <Modal.Body>
                 {error && <p className="text-center text-danger">Enter complete details.</p>}
                 <Form.Control className="mb-2" id="amount" type="number" min={1} placeholder="Amount" required ref={amountRef} />
-                <Form.Control className="mb-2" as="textarea" id="description" style={{ height: '200px' }} type="email" placeholder="Description" required ref={descriptionRef} />
+                <Form.Control className="mb-2" as="textarea" id="title" style={{ height: '75px' }} type="email" placeholder="Title" required ref={titleRef} />
                 <Form.Label>Category</Form.Label>
                 <Form.Select aria-label="Default select example" ref={categoryRef}>
                     <option value="Food">Food</option>

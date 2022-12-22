@@ -13,7 +13,7 @@ const ExpenseList = (props) => {
         <ExpenseItem
             key={itm.id}
             category={itm.category}
-            description={itm.description}
+            title={itm.title}
             price={itm.price}
             onRemove={deleteExpenseHandler.bind(null,itm.id)}
         />

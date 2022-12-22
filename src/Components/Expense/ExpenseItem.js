@@ -6,7 +6,7 @@ const ExpenseItem = (props) => {
     return (
         <li className="my-2">
             <Card>
-                <ExpenseDetails category={props.category} description={props.description} price={props.price} />
+                <ExpenseDetails category={props.category} title={props.title} price={props.price} />
                 <div className="d-flex justify-content-end p-2" style={{ marginBottom: "20px", marginTop: "-65px" }}>
                     <Button variant="warning">Edit</Button>
                     <Button variant="danger" className="mx-2" onClick={props.onRemove}>Delete</Button>

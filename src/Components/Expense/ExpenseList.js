@@ -20,7 +20,7 @@ const ExpenseList = (props) => {
     ));
 
     return (
-        <ul className="mt-3">
+        <ul className="mt-3 mx-5">
             {expenseItemList}
         </ul>
     );

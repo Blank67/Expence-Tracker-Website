@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import ExpenseContext from "../../Context/expense-context";
 
-const Expenseform = (props) => {
+const ExpenseForm = (props) => {
     const amountRef = useRef('');
     const descriptionRef = useRef('');
     const categoryRef = useRef('');
@@ -26,7 +26,7 @@ const Expenseform = (props) => {
     }
 
     return (
-        <Modal show={props.onShow} onHide={props.onClose}>
+        <Modal show={props.onShow} onHide={props.onClose} centered>
             <Modal.Header closeButton>
                 <Modal.Title>Add Expense</Modal.Title>
             </Modal.Header>
@@ -48,4 +48,4 @@ const Expenseform = (props) => {
     );
 }
 
-export default Expenseform;
+export default ExpenseForm;

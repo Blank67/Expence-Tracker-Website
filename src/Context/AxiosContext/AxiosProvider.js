@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AxiosContext from "./axios-context";
 import axios from '../../axios/axios';
-import AuthContext from "../../firebase/auth-context";
+import AuthContext from "../FirebaseContext/auth-context";
 
 const AxiosProvider = (props) => {
 
@@ -24,18 +24,19 @@ const AxiosProvider = (props) => {
             setItems([]);
             setTotal(0);
             const response = await axios.get(`/${authCtx.userId}.json`);
+            // console.log(response.data);
             if (response.data) {
                 const allExpenseArr = [];
                 for (let key in response.data) {
                     allExpenseArr.push({ ...response.data[key], id: key });
                 }
                 setItems(allExpenseArr);
-                console.log(allExpenseArr);
-                // const sum = allExpenseArr.reduce((accumulator, object) => {
-                //     return accumulator + (+object.price);
-                // }, total);
-                // console.log(sum);
-                // setTotal(sum);
+                // console.log(allExpenseArr);
+                const sum = allExpenseArr.reduce((accumulator, object) => {
+                    return accumulator + (+object.price);
+                }, total);
+                console.log(sum);
+                setTotal(sum);
             } else {
                 console.log("NO EXPENSE ADDED!");
             }

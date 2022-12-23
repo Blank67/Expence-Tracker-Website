@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import AuthContext from "../../firebase/auth-context";
+import AuthContext from "../../Context/FirebaseContext/auth-context";
 
 const Header = (props) => {
     const authCtx = useContext(AuthContext);

@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import Expenses from "../Components/Expense/Expenses";
-import AuthContext from "../firebase/auth-context";
+import AuthContext from "../Context/FirebaseContext/auth-context";
 
 const Home = (props) => {
 

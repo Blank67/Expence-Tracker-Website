@@ -1,25 +1,43 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import ExpenseItem from "./ExpenseItem";
-// import AuthContext from "../../firebase/auth-context";
-import AxiosContext from "../../Context/AxiosContext/axios-context";
+import axios from '../../axios/axios';
+import AuthContext from "../../Context/FirebaseContext/auth-context";
 
 const ExpenseList = (props) => {
-    // const expenseCtx = useContext(ExpenseContext);
-    // const authCtx = useContext(AuthContext);
-    const axiosCtx = useContext(AxiosContext);
-    // const [expenseArr, setExpenseArr] = useState([]);
-    // let x = 0;
+    const authCtx = useContext(AuthContext);
+    const [expenseArr, setExpenseArr] = useState([]);
 
     const deleteExpenseHandler = (id) => {
-        // expenseCtx.removeItem(id);
-        axiosCtx.delete(id);
     }
 
     useEffect(() => {
-        axiosCtx.get();
+        getdata();
     }, []);
 
-    const expenseItemList = axiosCtx.items.map((itm) => {
+    const getdata = async () => {
+        try {
+            setExpenseArr([]);
+            const response = await axios.get(`/${authCtx.userId}.json`);
+            if (response.data) {
+                const allExpenseArr = [];
+                for (let key in response.data) {
+                    allExpenseArr.push({ ...response.data[key], id: key });
+                }
+                setExpenseArr(allExpenseArr);
+                // const sum = allExpenseArr.reduce((accumulator, object) => {
+                //     return accumulator + (+object.price);
+                // }, total);
+                // console.log(sum);
+                // setTotal(sum);
+            } else {
+                console.log("NO EXPENSE ADDED!");
+            }
+        } catch (err) {
+
+        }
+    }
+
+    const expenseItemList = expenseArr.map((itm) => {
         return (<ExpenseItem
             key={itm.id}
             id={itm.id}
@@ -32,7 +50,7 @@ const ExpenseList = (props) => {
 
     return (
         <ul className="my-3 mx-5">
-            {axiosCtx.items.length > 0 ? expenseItemList : <h4 className="text-center">NO EXPENSE ADDED</h4>}
+            {expenseArr.length > 0 ? expenseItemList : <h4 className="text-center">NO EXPENSE ADDED</h4>}
         </ul>
     );
 }

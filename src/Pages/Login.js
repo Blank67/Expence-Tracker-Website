@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import AuthContext from "../firebase/auth-context";
+import AuthContext from "../Context/FirebaseContext/auth-context";
 
 const Login = (props) => {
 

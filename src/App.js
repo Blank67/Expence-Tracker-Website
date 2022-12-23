@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import AuthContext from './firebase/auth-context';
+import AuthContext from './Context/FirebaseContext/auth-context';
 
 const Header = React.lazy(() => import('./Components/Layout/Header'));
 const Home = React.lazy(() => import('./Pages/Home'));

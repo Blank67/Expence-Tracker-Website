@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AxiosContext from "./axios-context";
-import axios from '../axios/axios';
-import AuthContext from "../firebase/auth-context";
+import axios from '../../axios/axios';
+import AuthContext from "../../firebase/auth-context";
 
 const AxiosProvider = (props) => {
 

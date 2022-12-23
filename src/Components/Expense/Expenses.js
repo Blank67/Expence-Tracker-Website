@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 // import ReactDOM from "react-dom";
 import { Button } from "react-bootstrap";
-import AxiosContext from "../../AxiosContext/axios-context";
-import AxiosProvider from "../../AxiosContext/AxiosProvider";
+import AxiosContext from "../../Context/AxiosContext/axios-context";
+import AxiosProvider from "../../Context/AxiosContext/AxiosProvider";
 // import ExpenseContext from "../../Context/expense-context";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";

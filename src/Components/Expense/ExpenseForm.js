@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 // import ExpenseContext from "../../Context/expense-context";
 // import axios from '../../axios/axios';
 // import AuthContext from "../../firebase/auth-context";
-import AxiosContext from "../../AxiosContext/axios-context";
+import AxiosContext from "../../Context/AxiosContext/axios-context";
 
 const ExpenseForm = (props) => {
     const amountRef = useRef('');

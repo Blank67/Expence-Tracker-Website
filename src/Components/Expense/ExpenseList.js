@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import ExpenseItem from "./ExpenseItem";
 // import AuthContext from "../../firebase/auth-context";
-import AxiosContext from "../../AxiosContext/axios-context";
+import AxiosContext from "../../Context/AxiosContext/axios-context";
 
 const ExpenseList = (props) => {
     // const expenseCtx = useContext(ExpenseContext);

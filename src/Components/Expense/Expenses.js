@@ -6,11 +6,15 @@ import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 
 const Expenses = (props) => {
-    const [showForm, setShowForm] = useState(false);
     // const overlay = document.getElementById('custompopups');
+    const [showForm, setShowForm] = useState(false);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     const toggleExpenseFormHandler = () => {
         setShowForm((prevState) => !prevState);
+    }
+    const amount = (amt) => {
+        setTotalAmount(amt);
     }
 
     return (
@@ -22,8 +26,8 @@ const Expenses = (props) => {
             </section>
             <section>
                 <h2 className="mt-5 mx-2">Expense List</h2>
-                <ExpenseList />
-                <h2 className="float-end me-2">Total Expense: Rs.{0}</h2>
+                <ExpenseList setAmount={amount} />
+                <h2 className="float-end me-2">Total Expense: Rs.{totalAmount}</h2>
             </section>
         </Fragment>
     );

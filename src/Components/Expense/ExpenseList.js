@@ -24,11 +24,10 @@ const ExpenseList = (props) => {
                     allExpenseArr.push({ ...response.data[key], id: key });
                 }
                 setExpenseArr(allExpenseArr);
-                // const sum = allExpenseArr.reduce((accumulator, object) => {
-                //     return accumulator + (+object.price);
-                // }, total);
-                // console.log(sum);
-                // setTotal(sum);
+                const sum = allExpenseArr.reduce((accumulator, expence) => {
+                    return accumulator + (+expence.price);
+                }, 0);
+                props.setAmount(sum);
             } else {
                 console.log("NO EXPENSE ADDED!");
             }

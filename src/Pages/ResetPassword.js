@@ -28,8 +28,6 @@ const ResetPassword = (props) => {
                 }
             });
             const transformedResponse = await response.json();
-            console.log(response);
-            console.log(transformedResponse);
             if(response.ok){
                 setMailSent(true);
                 setError(false);

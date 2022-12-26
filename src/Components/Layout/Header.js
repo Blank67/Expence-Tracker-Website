@@ -1,17 +1,14 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-// import AuthContext from "../../Context/FirebaseContext/auth-context";
-import { authActions } from "../../store/auth";
+import { authActions } from "../../store/auth-slice";
 
 const Header = (props) => {
-    // const authCtx = useContext(AuthContext);
     const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
-        // authCtx.logout();
         dispatch(authActions.logout());
     }
 

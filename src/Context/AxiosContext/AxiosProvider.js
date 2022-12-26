@@ -12,7 +12,6 @@ const AxiosProvider = (props) => {
     const postData = async (item) => {
         try {
             const response = await axios.post(`/${authCtx.userId}.json`, item);
-            console.log(response);
             getData();
         } catch (err) {
 
@@ -24,18 +23,15 @@ const AxiosProvider = (props) => {
             setItems([]);
             setTotal(0);
             const response = await axios.get(`/${authCtx.userId}.json`);
-            // console.log(response.data);
             if (response.data) {
                 const allExpenseArr = [];
                 for (let key in response.data) {
                     allExpenseArr.push({ ...response.data[key], id: key });
                 }
                 setItems(allExpenseArr);
-                // console.log(allExpenseArr);
                 const sum = allExpenseArr.reduce((accumulator, object) => {
                     return accumulator + (+object.price);
                 }, total);
-                console.log(sum);
                 setTotal(sum);
             } else {
                 console.log("NO EXPENSE ADDED!");
@@ -46,9 +42,7 @@ const AxiosProvider = (props) => {
     }
 
     const deleteData = async (id) => {
-        console.log(id);
         const response = await axios.delete(`/${authCtx.userId}/${id}.json`);
-        console.log(response);
         getData();
     }
 

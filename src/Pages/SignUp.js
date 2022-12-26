@@ -33,9 +33,7 @@ const SignUp = (prop) => {
             });
             const transformedResponse = await response.json();
             if (response.ok) {
-                // alert('Account Created!');
                 setCreated(true);
-                // history.replace('/login');
             } else {
                 let errorMessage = 'Authentication Failed!';
                 if (transformedResponse.error.message) {

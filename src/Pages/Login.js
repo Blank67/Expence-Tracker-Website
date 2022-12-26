@@ -1,9 +1,8 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import AuthContext from "../Context/FirebaseContext/auth-context";
-import { authActions } from "../store/auth";
+import { authActions } from "../store/auth-slice";
 
 const Login = (props) => {
 
@@ -11,7 +10,6 @@ const Login = (props) => {
     const passRef = useRef();
     const history = useHistory();
     const [error, setError] = useState(false);
-    // const authCtx = useContext(AuthContext);
     const dispatch = useDispatch();
 
     const onSubmitHandler = async (e) => {
@@ -36,9 +34,7 @@ const Login = (props) => {
             })
             const transformedResponse = await response.json();
             if (response.ok) {
-                // authCtx.login(transformedResponse.idToken, transformedResponse.localId);
                 dispatch(authActions.login({ token: transformedResponse.idToken, userID: transformedResponse.localId }));
-                // debugger;
                 alert('Logged In!');
                 history.replace('/home');
             } else {

@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import axios from '../../axios/axios';
-import AuthContext from "../../Context/FirebaseContext/auth-context";
+import { useSelector } from "react-redux";
 
 const ExpenseList = (props) => {
-    const authCtx = useContext(AuthContext);
+    const userID = useSelector((state) => (state.auth.userId));
     const [expenseArr, setExpenseArr] = useState([]);
 
     const deleteExpenseHandler = async (id) => {
-        const response = await axios.delete(`/${authCtx.userId}/${id}.json`);
+        const response = await axios.delete(`/${userID}/${id}.json`);
         getdata();
     }
 
@@ -19,7 +19,7 @@ const ExpenseList = (props) => {
     const getdata = async () => {
         try {
             setExpenseArr([]);
-            const response = await axios.get(`/${authCtx.userId}.json`);
+            const response = await axios.get(`/${userID}.json`);
             if (response.data) {
                 const allExpenseArr = [];
                 for (let key in response.data) {
@@ -37,8 +37,6 @@ const ExpenseList = (props) => {
 
         }
     }
-
-    // props.getData(getdata);
 
     const expenseItemList = expenseArr.map((itm) => {
         return (<ExpenseItem

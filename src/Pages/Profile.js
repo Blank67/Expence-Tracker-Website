@@ -23,8 +23,6 @@ const Profile = (props) => {
                     }
                 });
                 const transformedResponse = await response.json();
-                // console.log(response);
-                // console.log(transformedResponse);
                 if (response.ok) {
                     if (transformedResponse.users[0].displayName) {
                         nameRef.current.value = transformedResponse.users[0].displayName;
@@ -71,8 +69,6 @@ const Profile = (props) => {
                 }
             });
             const transformedResponse = await response.json();
-            // console.log(response);
-            // console.log(transformedResponse);
             if (response.ok) {
                 if (transformedResponse.displayName) {
                     nameRef.current.value = transformedResponse.displayName;
@@ -115,8 +111,6 @@ const Profile = (props) => {
                 }
             });
             const transformedResponse = await response.json();
-            console.log(response);
-            console.log(transformedResponse);
         } catch (err) { }
     }
 

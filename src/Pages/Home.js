@@ -1,5 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Expenses from "../Components/Expense/Expenses";
 import AuthContext from "../Context/FirebaseContext/auth-context";
@@ -9,6 +10,7 @@ const Home = (props) => {
     const [profileCompleted, setProfileCompleted] = useState(true);
     const [emailVerified, setEmailVerified] = useState(true);
     const authCtx = useContext(AuthContext);
+    const token = useSelector((state) => (state.auth.token));
 
     useEffect(() => {
         const getData = async () => {
@@ -16,14 +18,12 @@ const Home = (props) => {
                 const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDNiGP2YbgqnIMHk-jicOFmjCh_0TUERf8';
                 const response = await fetch(url, {
                     method: 'POST',
-                    body: JSON.stringify({ idToken: authCtx.token }),
+                    body: JSON.stringify({ idToken: token }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 const transformedResponse = await response.json();
-                // console.log(response);
-                // console.log(transformedResponse);
                 if (response.ok) {
                     if (!transformedResponse.users[0].displayName) {
                         setProfileCompleted(false);

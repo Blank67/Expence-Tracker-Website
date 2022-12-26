@@ -1,8 +1,7 @@
-import React, { Suspense, useContext } from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import AuthContext from './Context/FirebaseContext/auth-context';
 
 const Header = React.lazy(() => import('./Components/Layout/Header'));
 const Home = React.lazy(() => import('./Pages/Home'));
@@ -12,9 +11,7 @@ const ResetPassword = React.lazy(() => import('./Pages/ResetPassword'));
 const SignUp = React.lazy(() => import('./Pages/SignUp'));
 
 const App = () => {
-  // const authCtx = useContext(AuthContext);
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
-  // console.log(loginStatus);
 
   return (
     <div className='bg-light'>

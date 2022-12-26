@@ -7,14 +7,12 @@ import '../node_modules/react-bootstrap/dist/react-bootstrap.min';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter } from 'react-router-dom';
 import ExpenseProvider from './Context/ExpenseContext/ExpenseProvider';
-// import AuthProvider from './Context/FirebaseContext/AuthProvider';
 import { Provider } from 'react-redux';
 import store from './store/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <AuthProvider> */}
     <Provider store={store}>
       <ExpenseProvider>
         <BrowserRouter>
@@ -22,7 +20,6 @@ root.render(
         </BrowserRouter>
       </ExpenseProvider>
     </Provider>
-    {/* </AuthProvider> */}
   </React.StrictMode>
 );
 

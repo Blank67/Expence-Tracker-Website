@@ -7,7 +7,9 @@ const ExpenseList = (props) => {
     const authCtx = useContext(AuthContext);
     const [expenseArr, setExpenseArr] = useState([]);
 
-    const deleteExpenseHandler = (id) => {
+    const deleteExpenseHandler = async (id) => {
+        const response = await axios.delete(`/${authCtx.userId}/${id}.json`);
+        getdata();
     }
 
     useEffect(() => {
@@ -35,6 +37,8 @@ const ExpenseList = (props) => {
 
         }
     }
+
+    // props.getData(getdata);
 
     const expenseItemList = expenseArr.map((itm) => {
         return (<ExpenseItem

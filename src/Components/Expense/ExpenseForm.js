@@ -1,23 +1,23 @@
 import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import axios from '../../axios/axios';
-import AuthContext from "../../Context/FirebaseContext/auth-context";
+// import axios from '../../axios/axios';
+// import AuthContext from "../../Context/FirebaseContext/auth-context";
 
 const ExpenseForm = (props) => {
     const amountRef = useRef('');
     const titleRef = useRef('');
     const categoryRef = useRef('');
     const [error, setError] = useState(false);
-    const authCtx = useContext(AuthContext);
+    // const authCtx = useContext(AuthContext);
 
-    const postData = async (exp) => {
-        try {
-            const response = await axios.post(`/${authCtx.userId}.json`, exp);
-            console.log(response);
-        } catch (err) {
+    // const postData = async (exp) => {
+    //     try {
+    //         const response = await axios.post(`/${authCtx.userId}.json`, exp);
+    //         console.log(response);
+    //     } catch (err) {
 
-        }
-    }
+    //     }
+    // }
 
     const addExpenseHandler = () => {
         if (amountRef.current.value < 1 || titleRef.current.value === '') {
@@ -30,8 +30,10 @@ const ExpenseForm = (props) => {
             title: titleRef.current.value,
             price: amountRef.current.value
         };
-        postData(expense);
-        props.onClose();
+        props.onPost(expense);
+        debugger;
+        console.log(props.onGet);
+        props.onGet();
     }
 
     return (

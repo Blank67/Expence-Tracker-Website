@@ -2,16 +2,17 @@ import React, { useContext, useState } from "react";
 import AxiosContext from "./axios-context";
 import axios from '../../axios/axios';
 import AuthContext from "../FirebaseContext/auth-context";
+import { useSelector } from "react-redux";
 
 const AxiosProvider = (props) => {
 
     const [total, setTotal] = useState(0);
-    const authCtx = useContext(AuthContext);
+    const userID = useSelector((state) => (state.auth.userId));
     const [items, setItems] = useState([]);
 
     const postData = async (item) => {
         try {
-            const response = await axios.post(`/${authCtx.userId}.json`, item);
+            const response = await axios.post(`/${userID}.json`, item);
             getData();
         } catch (err) {
 
@@ -22,7 +23,7 @@ const AxiosProvider = (props) => {
         try {
             setItems([]);
             setTotal(0);
-            const response = await axios.get(`/${authCtx.userId}.json`);
+            const response = await axios.get(`/${userID}.json`);
             if (response.data) {
                 const allExpenseArr = [];
                 for (let key in response.data) {
@@ -42,7 +43,7 @@ const AxiosProvider = (props) => {
     }
 
     const deleteData = async (id) => {
-        const response = await axios.delete(`/${authCtx.userId}/${id}.json`);
+        const response = await axios.delete(`/${userID}/${id}.json`);
         getData();
     }
 

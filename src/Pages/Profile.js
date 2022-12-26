@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import AuthContext from "../Context/FirebaseContext/auth-context";
+import { useSelector } from "react-redux";
 
 const Profile = (props) => {
 
@@ -9,15 +9,16 @@ const Profile = (props) => {
     const [errorDetails, setErrorDetails] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
     const [isVerified, setIsVerified] = useState(true);
-    const authCtx = useContext(AuthContext);
+    const token = useSelector((state) => (state.auth.token));
 
     useEffect(() => {
         const getData = async () => {
+            console.log(token);
             try {
                 const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDNiGP2YbgqnIMHk-jicOFmjCh_0TUERf8';
                 const response = await fetch(url, {
                     method: 'POST',
-                    body: JSON.stringify({ idToken: authCtx.token }),
+                    body: JSON.stringify({ idToken: token }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -46,7 +47,7 @@ const Profile = (props) => {
             }
         }
         getData();
-    }, [authCtx.token]);
+    }, [token]);
 
     const detailSaveHandler = async (e) => {
         e.preventDefault();
@@ -60,7 +61,7 @@ const Profile = (props) => {
             const response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    idToken: authCtx.token,
+                    idToken: token,
                     displayName: nameRef.current.value,
                     returnSecureToken: true
                 }),
@@ -104,7 +105,7 @@ const Profile = (props) => {
                 method: 'POST',
                 body: JSON.stringify({
                     requestType: 'VERIFY_EMAIL',
-                    idToken: authCtx.token,
+                    idToken: token,
                 }),
                 headers: {
                     'Content-Type': 'application/json'

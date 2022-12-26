@@ -1,15 +1,13 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Expenses from "../Components/Expense/Expenses";
-import AuthContext from "../Context/FirebaseContext/auth-context";
 
 const Home = (props) => {
 
     const [profileCompleted, setProfileCompleted] = useState(true);
     const [emailVerified, setEmailVerified] = useState(true);
-    const authCtx = useContext(AuthContext);
     const token = useSelector((state) => (state.auth.token));
 
     useEffect(() => {
@@ -47,7 +45,7 @@ const Home = (props) => {
             }
         }
         getData();
-    }, [authCtx.token]);
+    }, [token]);
 
     return (
         <Fragment>

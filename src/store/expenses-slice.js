@@ -24,6 +24,10 @@ const expenseSlice = createSlice({
         replaceExpenseState (state, action) {
             state.items = action.payload.items;
             state.totalExpense = action.payload.totalExpense;
+        },
+        clearSliceOnLogout(state, action) {
+            state.items = [];
+            state.totalExpense = 0;
         }
     }
 });

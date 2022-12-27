@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { authActions } from "../../store/auth-slice";
+import { expenseActions } from "../../store/expenses-slice";
 
 const Header = (props) => {
     const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
@@ -10,6 +11,7 @@ const Header = (props) => {
 
     const logoutHandler = () => {
         dispatch(authActions.logout());
+        dispatch(expenseActions.clearSliceOnLogout());
     }
 
     return (

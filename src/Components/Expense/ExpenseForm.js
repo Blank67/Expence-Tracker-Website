@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { expenseActions } from "../../store/expenses-slice";
 
 const ExpenseForm = (props) => {
     const amountRef = useRef('');
     const titleRef = useRef('');
     const categoryRef = useRef('');
     const [error, setError] = useState(false);
+    const dispatch = useDispatch();
 
     const addExpenseHandler = () => {
         if (amountRef.current.value < 1 || titleRef.current.value === '') {
@@ -14,12 +17,13 @@ const ExpenseForm = (props) => {
         }
         setError(false);
         const expense = {
+            id: titleRef.current.value+amountRef.current.value,
             category: categoryRef.current.value,
             title: titleRef.current.value,
             price: amountRef.current.value
         };
-        // props.onPost(expense);
-        // props.onGet();
+        dispatch(expenseActions.addExpense({expense: expense}));
+        props.onClose();
     }
 
     return (

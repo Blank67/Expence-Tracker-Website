@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
 import ExpenseItem from "./ExpenseItem";
-import axios from '../../axios/axios';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { expenseActions } from "../../store/expenses-slice";
 
 const ExpenseList = (props) => {
-    const userID = useSelector((state) => (state.auth.userId));
-    const [expenseArr, setExpenseArr] = useState([]);
+    // const userID = useSelector((state) => (state.auth.userId));
+    const expenseArr = useSelector((state) => (state.expense.items));
+    const dispatch = useDispatch();
 
-    // const deleteExpenseHandler = async (id) => {
-    //     const response = await axios.delete(`/${userID}/${id}.json`);
-    //     getdata();
-    // }
+    const deleteExpenseHandler = async (id) => {
+        // const response = await axios.delete(`/${userID}/${id}.json`);
+        // getdata();
+        dispatch(expenseActions.deleteExpense(id));
+    }
 
     // useEffect(() => {
     //     getdata();
@@ -45,7 +46,7 @@ const ExpenseList = (props) => {
             category={itm.category}
             title={itm.title}
             price={itm.price}
-            // onRemove={deleteExpenseHandler.bind(null, itm.id)}
+            onRemove={deleteExpenseHandler.bind(null, itm.id)}
         />)
     });
 

@@ -20,7 +20,11 @@ const expenseSlice = createSlice({
             state.items = state.items.filter((itm) => itm.id !==id);
             state.totalExpense = (+state.totalExpense) - (+itemToDelete.price);
         },
-        editExpense(state, action) { }
+        editExpense(state, action) { },
+        replaceExpenseState (state, action) {
+            state.items = action.payload.items;
+            state.totalExpense = action.payload.totalExpense;
+        }
     }
 });
 

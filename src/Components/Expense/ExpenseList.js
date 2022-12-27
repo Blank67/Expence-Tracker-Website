@@ -8,36 +8,8 @@ const ExpenseList = (props) => {
     const dispatch = useDispatch();
 
     const deleteExpenseHandler = async (id) => {
-        // const response = await axios.delete(`/${userID}/${id}.json`);
-        // getdata();
         dispatch(expenseActions.deleteExpense(id));
     }
-
-    // useEffect(() => {
-    //     getdata();
-    // }, []);
-
-    // const getdata = async () => {
-    //     try {
-    //         setExpenseArr([]);
-    //         const response = await axios.get(`/${userID}.json`);
-    //         if (response.data) {
-    //             const allExpenseArr = [];
-    //             for (let key in response.data) {
-    //                 allExpenseArr.push({ ...response.data[key], id: key });
-    //             }
-    //             setExpenseArr(allExpenseArr);
-    //             const sum = allExpenseArr.reduce((accumulator, expence) => {
-    //                 return accumulator + (+expence.price);
-    //             }, 0);
-    //             props.setAmount(sum);
-    //         } else {
-    //             console.log("NO EXPENSE ADDED!");
-    //         }
-    //     } catch (err) {
-
-    //     }
-    // }
 
     const expenseItemList = expenseArr.map((itm) => {
         return (<ExpenseItem

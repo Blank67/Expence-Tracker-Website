@@ -13,7 +13,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         const getData = async () => {
-            console.log(token);
             try {
                 const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDNiGP2YbgqnIMHk-jicOFmjCh_0TUERf8';
                 const response = await fetch(url, {
@@ -111,7 +110,8 @@ const Profile = (props) => {
                     'Content-Type': 'application/json'
                 }
             });
-            const transformedResponse = await response.json();
+            console.log(response);
+            // const transformedResponse = await response.json();
         } catch (err) { }
     }
 

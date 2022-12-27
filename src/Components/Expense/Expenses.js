@@ -1,26 +1,29 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllData, postAllData } from "../../store/expense-http-actions";
 
 const Expenses = (props) => {
     const [showForm, setShowForm] = useState(false);
-    // const userID = useSelector((state) => (state.auth.userId));
     const totalAmount = useSelector((state) => (state.expense.totalExpense));
+    const userID = useSelector((state) => (state.auth.userID));
+    const expenseState = useSelector((state) => (state.expense));
+    const dispatch = useDispatch();
 
     const toggleExpenseFormHandler = () => {
         setShowForm((prevState) => !prevState);
     }
 
-    // const postData = async (exp) => {
-    //     try {
-    //         const response = await axios.post(`/${userID}.json`, exp);
-    //         setShowForm(false);
-    //     } catch (err) {
+    useEffect(() => {
+        dispatch(fetchAllData(userID));
+    }, [dispatch, userID]);
 
-    //     }
-    // }
+    useEffect(() => {
+        dispatch(postAllData(expenseState, userID));
+    }, [dispatch, expenseState, userID]);
+
 
     return (
         <Fragment>

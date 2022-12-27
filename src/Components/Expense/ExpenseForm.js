@@ -17,12 +17,12 @@ const ExpenseForm = (props) => {
         }
         setError(false);
         const expense = {
-            id: titleRef.current.value+amountRef.current.value,
+            id: titleRef.current.value + amountRef.current.value,
             category: categoryRef.current.value,
             title: titleRef.current.value,
             price: amountRef.current.value
         };
-        dispatch(expenseActions.addExpense({expense: expense}));
+        dispatch(expenseActions.addExpense({ expense: expense }));
         props.onClose();
     }
 

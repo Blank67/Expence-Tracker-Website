@@ -12,9 +12,10 @@ const SignUp = React.lazy(() => import('./Pages/SignUp'));
 
 const App = () => {
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
+  const darkTheme = useSelector((state) => (state.dark.isDark));
 
   return (
-    <div className='bg-light'>
+    <div className={darkTheme ? 'bg-secondary' : 'bg-light'}>
       <Suspense fallback={<h1 className='text-center'>LOADING.....</h1>}>
         <Header />
         <Switch>

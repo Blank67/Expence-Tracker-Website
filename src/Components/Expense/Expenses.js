@@ -23,6 +23,10 @@ const Expenses = (props) => {
         dispatch(expenseActions.activatePremium());
     }
 
+    const changeThemeHandler = () => {
+        dispatch(darkActions.toggle());
+    }
+
     useEffect(() => {
         dispatch(fetchAllData(userID));
     }, [dispatch, userID]);
@@ -44,10 +48,10 @@ const Expenses = (props) => {
                     <Button variant="outline-info" onClick={activatePremium}><b>Activate Premium</b></Button>
                 </div>}
                 {premiumStatus && <div className="d-flex justify-content-end me-5">
-                    <Button variant="info">Change Theme</Button>
+                    <Button variant="info" onClick={changeThemeHandler}>Change Theme</Button>
                 </div>}
                 <ExpenseList />
-                <h2 className="float-end me-5">Total Expense: Rs.{totalAmount}</h2>
+                <h2 className="d-flex justify-content-end me-5">Total Expense: Rs.{totalAmount}</h2>
             </section>
         </Fragment>
     );

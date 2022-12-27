@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { authActions } from "../../store/auth-slice";
+import { darkActions } from "../../store/darkTheme-slice";
 import { expenseActions } from "../../store/expenses-slice";
 
 const Header = (props) => {
@@ -12,6 +13,7 @@ const Header = (props) => {
     const logoutHandler = () => {
         dispatch(authActions.logout());
         dispatch(expenseActions.clearSliceOnLogout());
+        dispatch(darkActions.logoutTheme());
     }
 
     return (

@@ -7,36 +7,36 @@ const ExpenseList = (props) => {
     const userID = useSelector((state) => (state.auth.userId));
     const [expenseArr, setExpenseArr] = useState([]);
 
-    const deleteExpenseHandler = async (id) => {
-        const response = await axios.delete(`/${userID}/${id}.json`);
-        getdata();
-    }
+    // const deleteExpenseHandler = async (id) => {
+    //     const response = await axios.delete(`/${userID}/${id}.json`);
+    //     getdata();
+    // }
 
-    useEffect(() => {
-        getdata();
-    }, []);
+    // useEffect(() => {
+    //     getdata();
+    // }, []);
 
-    const getdata = async () => {
-        try {
-            setExpenseArr([]);
-            const response = await axios.get(`/${userID}.json`);
-            if (response.data) {
-                const allExpenseArr = [];
-                for (let key in response.data) {
-                    allExpenseArr.push({ ...response.data[key], id: key });
-                }
-                setExpenseArr(allExpenseArr);
-                const sum = allExpenseArr.reduce((accumulator, expence) => {
-                    return accumulator + (+expence.price);
-                }, 0);
-                props.setAmount(sum);
-            } else {
-                console.log("NO EXPENSE ADDED!");
-            }
-        } catch (err) {
+    // const getdata = async () => {
+    //     try {
+    //         setExpenseArr([]);
+    //         const response = await axios.get(`/${userID}.json`);
+    //         if (response.data) {
+    //             const allExpenseArr = [];
+    //             for (let key in response.data) {
+    //                 allExpenseArr.push({ ...response.data[key], id: key });
+    //             }
+    //             setExpenseArr(allExpenseArr);
+    //             const sum = allExpenseArr.reduce((accumulator, expence) => {
+    //                 return accumulator + (+expence.price);
+    //             }, 0);
+    //             props.setAmount(sum);
+    //         } else {
+    //             console.log("NO EXPENSE ADDED!");
+    //         }
+    //     } catch (err) {
 
-        }
-    }
+    //     }
+    // }
 
     const expenseItemList = expenseArr.map((itm) => {
         return (<ExpenseItem
@@ -45,7 +45,7 @@ const ExpenseList = (props) => {
             category={itm.category}
             title={itm.title}
             price={itm.price}
-            onRemove={deleteExpenseHandler.bind(null, itm.id)}
+            // onRemove={deleteExpenseHandler.bind(null, itm.id)}
         />)
     });
 

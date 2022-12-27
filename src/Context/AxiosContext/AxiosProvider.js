@@ -1,13 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import AxiosContext from "./axios-context";
 import axios from '../../axios/axios';
-import AuthContext from "../FirebaseContext/auth-context";
 import { useSelector } from "react-redux";
 
 const AxiosProvider = (props) => {
 
     const [total, setTotal] = useState(0);
-    const userID = useSelector((state) => (state.auth.userId));
+    const userID = useSelector((state) => (state.auth.userID));
     const [items, setItems] = useState([]);
 
     const postData = async (item) => {

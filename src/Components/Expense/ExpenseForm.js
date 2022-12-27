@@ -18,8 +18,8 @@ const ExpenseForm = (props) => {
             title: titleRef.current.value,
             price: amountRef.current.value
         };
-        props.onPost(expense);
-        props.onGet();
+        // props.onPost(expense);
+        // props.onGet();
     }
 
     return (

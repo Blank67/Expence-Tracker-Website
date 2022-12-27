@@ -4,6 +4,8 @@ import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllData, postAllData } from "../../store/expense-http-actions";
+import { darkActions } from "../../store/darkTheme-slice";
+import { expenseActions } from "../../store/expenses-slice";
 
 const Expenses = (props) => {
     const [showForm, setShowForm] = useState(false);
@@ -11,9 +13,14 @@ const Expenses = (props) => {
     const userID = useSelector((state) => (state.auth.userID));
     const expenseState = useSelector((state) => (state.expense));
     const dispatch = useDispatch();
+    const premiumStatus = useSelector((state) => (state.expense.premium));
 
     const toggleExpenseFormHandler = () => {
         setShowForm((prevState) => !prevState);
+    }
+
+    const activatePremium = () => {
+        dispatch(expenseActions.activatePremium());
     }
 
     useEffect(() => {
@@ -33,8 +40,11 @@ const Expenses = (props) => {
             </section>
             <section>
                 <h2 className="mt-5 mx-2">Expense List</h2>
-                {totalAmount > 1000 && <div className="d-flex justify-content-end me-5">
-                    <Button variant="outline-info"><b>Activate Premium</b></Button>
+                {totalAmount > 10 && !premiumStatus && <div className="d-flex justify-content-end me-5">
+                    <Button variant="outline-info" onClick={activatePremium}><b>Activate Premium</b></Button>
+                </div>}
+                {premiumStatus && <div className="d-flex justify-content-end me-5">
+                    <Button variant="info">Change Theme</Button>
                 </div>}
                 <ExpenseList />
                 <h2 className="float-end me-5">Total Expense: Rs.{totalAmount}</h2>

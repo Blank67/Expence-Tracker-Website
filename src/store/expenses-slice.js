@@ -2,7 +2,8 @@ const { createSlice } = require("@reduxjs/toolkit")
 
 const initialState = {
     items: [],
-    totalExpense: 0
+    totalExpense: 0,
+    premium: false
 }
 
 const expenseSlice = createSlice({
@@ -24,10 +25,15 @@ const expenseSlice = createSlice({
         replaceExpenseState (state, action) {
             state.items = action.payload.items;
             state.totalExpense = action.payload.totalExpense;
+            state.premium = action.payload.premium;
         },
         clearSliceOnLogout(state, action) {
             state.items = [];
             state.totalExpense = 0;
+            state.premium = false;
+        },
+        activatePremium(state) {
+            state.premium = true;
         }
     }
 });

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllData, postAllData } from "../../store/expense-http-actions";
 import { darkActions } from "../../store/darkTheme-slice";
 import { expenseActions } from "../../store/expenses-slice";
+import { CSVLink } from "react-csv";
 
 const Expenses = (props) => {
     const [showForm, setShowForm] = useState(false);
@@ -35,10 +36,29 @@ const Expenses = (props) => {
         dispatch(postAllData(expenseState, userID));
     }, [dispatch, expenseState, userID]);
 
+    //Download CSV code
+    //Using CSVLink
+    const headers = [
+        {
+            label: 'Category', key: 'category'
+        },
+        {
+            label: 'Title', key: 'title'
+        },
+        {
+            label: 'Amount', key: 'price'
+        }
+    ]
+    const csvLink = {
+        filename: 'Expenses.csv',
+        headers: headers,
+        data: expenseState.items
+    }
+    //Using Blob
 
     return (
         <Fragment>
-            <section className="text-center">
+            <section className="d-flex justify-content-center">
                 <Button onClick={toggleExpenseFormHandler}>Add Expense</Button>
                 {showForm && <ExpenseForm onShow={showForm} onClose={toggleExpenseFormHandler} />}
             </section>
@@ -53,6 +73,13 @@ const Expenses = (props) => {
                 <ExpenseList />
                 <h2 className="d-flex justify-content-end me-5">Total Expense: Rs.{totalAmount}</h2>
             </section>
+            <div className="d-flex justify-content-center">
+                <Button variant="outline-danger">
+                    <CSVLink {...csvLink} className="text-decoration-none text-black">Download Expenses</CSVLink>
+                    {/* <img src="https://www.lua.org/images/downloadarrow.png" width={20} height={30}></img> */}
+                    {/* <Link download='expenses.csv'>Download Expenses</Link> */}
+                </Button>
+            </div>
         </Fragment>
     );
 }

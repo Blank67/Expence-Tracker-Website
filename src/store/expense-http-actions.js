@@ -2,11 +2,9 @@ import axios from '../axios/axios';
 import { expenseActions } from './expenses-slice';
 
 export const fetchAllData = (userID) => {
-    debugger
     return async (dispatch) => {
         const getData = async () => {
             const response = await axios.get(`/${userID}.json`);
-            console.log(response);
             if (response.statusText !== 'OK') {
                 throw new Error('GET REQ FAILED');
             }

@@ -32,15 +32,12 @@ const Expenses = (props) => {
     }
 
     useEffect(() => {
-        debugger
         setLoading(true);
         dispatch(fetchAllData(userID));
         setLoading(false);
     }, [dispatch, userID]);
 
     useEffect(() => {
-        debugger;
-        console.log(firstLoad);
         if (!firstLoad) {
             dispatch(postAllData(expenseState, userID));
         } else {
@@ -76,7 +73,7 @@ const Expenses = (props) => {
             </section>
             <section>
                 <h2 className="mt-5 mx-2">Expense List</h2>
-                {totalAmount > 10 && !premiumStatus && <div className="d-flex justify-content-end me-5">
+                {totalAmount > 1000 && !premiumStatus && <div className="d-flex justify-content-end me-5">
                     <Button variant="outline-info" onClick={activatePremium}><b>Activate Premium</b></Button>
                 </div>}
                 {premiumStatus && <div className="d-flex justify-content-end me-5">

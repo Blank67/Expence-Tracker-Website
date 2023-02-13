@@ -35,7 +35,6 @@ const Login = (props) => {
             const transformedResponse = await response.json();
             if (response.ok) {
                 dispatch(authActions.login({ token: transformedResponse.idToken, userID: transformedResponse.localId }));
-                alert('Logged In!');
                 history.replace('/home');
             } else {
                 let errorMessage = 'Authentication Failed!';

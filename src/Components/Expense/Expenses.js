@@ -3,10 +3,12 @@ import { Button } from "react-bootstrap";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllData, postAllData } from "../../store/expense-http-actions";
 import { darkActions } from "../../store/darkTheme-slice";
 import { expenseActions } from "../../store/expenses-slice";
-import { CSVLink } from "react-csv";
+import { fetchAllData, postAllData } from "../../store/expense-http-actions";
+// import { CSVLink } from "react-csv";
+
+let firstLoad = true;
 
 const Expenses = (props) => {
     const [showForm, setShowForm] = useState(false);
@@ -15,6 +17,7 @@ const Expenses = (props) => {
     const expenseState = useSelector((state) => (state.expense));
     const dispatch = useDispatch();
     const premiumStatus = useSelector((state) => (state.expense.premium));
+    const [loading, setLoading] = useState(false);
 
     const toggleExpenseFormHandler = () => {
         setShowForm((prevState) => !prevState);
@@ -29,31 +32,40 @@ const Expenses = (props) => {
     }
 
     useEffect(() => {
+        debugger
+        setLoading(true);
         dispatch(fetchAllData(userID));
+        setLoading(false);
     }, [dispatch, userID]);
 
     useEffect(() => {
-        dispatch(postAllData(expenseState, userID));
+        debugger;
+        console.log(firstLoad);
+        if (!firstLoad) {
+            dispatch(postAllData(expenseState, userID));
+        } else {
+            firstLoad = false;
+        }
     }, [dispatch, expenseState, userID]);
 
     //Download CSV code
     //Using CSVLink
-    const headers = [
-        {
-            label: 'Category', key: 'category'
-        },
-        {
-            label: 'Title', key: 'title'
-        },
-        {
-            label: 'Amount', key: 'price'
-        }
-    ]
-    const csvLink = {
-        filename: 'Expenses.csv',
-        headers: headers,
-        data: expenseState.items
-    }
+    // const headers = [
+    //     {
+    //         label: 'Category', key: 'category'
+    //     },
+    //     {
+    //         label: 'Title', key: 'title'
+    //     },
+    //     {
+    //         label: 'Amount', key: 'price'
+    //     }
+    // ]
+    // const csvLink = {
+    //     filename: 'Expenses.csv',
+    //     headers: headers,
+    //     data: expenseState.items
+    // }
     //Using Blob
 
     return (
@@ -70,15 +82,15 @@ const Expenses = (props) => {
                 {premiumStatus && <div className="d-flex justify-content-end me-5">
                     <Button variant="info" onClick={changeThemeHandler}>Change Theme</Button>
                 </div>}
-                <ExpenseList />
+                {loading ? <h4 className="text-center">Please wait....</h4> : <ExpenseList />}
                 <h2 className="d-flex justify-content-end me-5">Total Expense: Rs.{totalAmount}</h2>
             </section>
             <div className="d-flex justify-content-center">
-                <Button variant="outline-danger">
-                    <CSVLink {...csvLink} className="text-decoration-none text-black">Download Expenses</CSVLink>
-                    {/* <img src="https://www.lua.org/images/downloadarrow.png" width={20} height={30}></img> */}
-                    {/* <Link download='expenses.csv'>Download Expenses</Link> */}
-                </Button>
+                {/* <Button variant="outline-danger"> */}
+                {/* <CSVLink {...csvLink} className="text-decoration-none text-black">Download Expenses</CSVLink> */}
+                {/* <img src="https://www.lua.org/images/downloadarrow.png" width={20} height={30}></img> */}
+                {/* <Link download='expenses.csv'>Download Expenses</Link> */}
+                {/* </Button> */}
             </div>
         </Fragment>
     );

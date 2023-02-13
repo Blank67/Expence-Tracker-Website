@@ -19,15 +19,13 @@ const App = () => {
       <Suspense fallback={<h1 className='text-center'>LOADING.....</h1>}>
         <Header />
         <Switch>
-          <Route exact path='/'>
-            <Redirect to='/login' />
-          </Route>
           {loginStatus && <Route path='/home'><Home /></Route>}
           {loginStatus && <Route path='/profile'><Profile /></Route>}
           {!loginStatus && <Route path='/login'><Login /></Route>}
           {!loginStatus && <Route path='/signup'><SignUp /></Route>}
           {!loginStatus && <Route path='/resetpassword'><ResetPassword /></Route>}
-          <Route path='*'><Redirect to='/login' /></Route>
+          {!loginStatus && <Route path='*'><Redirect to='/login' /></Route>}
+          {loginStatus && <Route path='*'><Redirect to='/home' /></Route>}
         </Switch>
       </Suspense>
     </div>

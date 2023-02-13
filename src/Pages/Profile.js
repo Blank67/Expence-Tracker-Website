@@ -89,12 +89,12 @@ const Profile = (props) => {
 
     const passwordChangeHandler = (e) => {
         e.preventDefault();
+        setErrorPassword(false);
         if (newPassRef.current.value.length < 6) {
             setErrorPassword(true);
             return;
         }
-        setErrorPassword(false);
-
+        
     }
 
     const verifyUserHandler = async () => {

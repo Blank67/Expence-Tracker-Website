@@ -27,8 +27,8 @@ const expenseSlice = createSlice({
             const index = state.items.findIndex(itm => itm.id === newExpense.id);
             const item = state.items[index];
             state.items[index] = newExpense;
-            console.log(item);
-            console.log(newExpense);
+            // console.log(item);
+            // console.log(newExpense);
             if (item.price > newExpense.price) {
                 state.totalExpense = state.totalExpense - (item.price - newExpense.price)
             } else {

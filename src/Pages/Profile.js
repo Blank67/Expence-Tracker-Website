@@ -10,6 +10,7 @@ const Profile = (props) => {
     const [errorPassword, setErrorPassword] = useState(false);
     const [isVerified, setIsVerified] = useState(true);
     const token = useSelector((state) => (state.auth.token));
+    const [mailSent, setMailSent] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -94,7 +95,7 @@ const Profile = (props) => {
             setErrorPassword(true);
             return;
         }
-        
+
     }
 
     const verifyUserHandler = async () => {
@@ -110,7 +111,10 @@ const Profile = (props) => {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response);
+            // console.log(response);
+            if (response.ok) {
+                setMailSent(true);
+            }
             // const transformedResponse = await response.json();
         } catch (err) { }
     }
@@ -118,6 +122,7 @@ const Profile = (props) => {
     return (
         <Container>
             <Row className="justify-content-center mt-5 mx-3">
+                {mailSent && <p className="text-center text-info">Verification mail sent.</p>}
                 <Col xs={4}>
                     <Card className="shadow-lg">
                         <Card.Header className="text-center p-3">Contact Details</Card.Header>

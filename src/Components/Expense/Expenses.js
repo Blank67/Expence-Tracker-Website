@@ -80,7 +80,7 @@ const Expenses = (props) => {
                     <Button variant="info" onClick={changeThemeHandler}>Change Theme</Button>
                 </div>}
                 {loading ? <h4 className="text-center">Please wait....</h4> : <ExpenseList />}
-                <h2 className="d-flex justify-content-end me-5">Total Expense: Rs.{totalAmount}</h2>
+                <h2 className="d-flex justify-content-end me-5" style={{marginTop: '75px'}}>Total Expense: Rs.{totalAmount}</h2>
             </section>
             <div className="d-flex justify-content-center">
                 {/* <Button variant="outline-danger"> */}

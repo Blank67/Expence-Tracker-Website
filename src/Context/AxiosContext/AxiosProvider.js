@@ -34,7 +34,7 @@ const AxiosProvider = (props) => {
                 }, total);
                 setTotal(sum);
             } else {
-                console.log("NO EXPENSE ADDED!");
+                // console.log("NO EXPENSE ADDED!");
             }
         } catch (err) {
 
